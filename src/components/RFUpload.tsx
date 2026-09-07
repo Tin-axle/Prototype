@@ -2,7 +2,6 @@ import React, { useCallback, useRef, useState } from 'react';
 import { UploadCloud, FileImage, ZoomIn, ZoomOut } from 'lucide-react';
 import * as pdfjsLib from 'pdfjs-dist';
 
-// Configure pdfjs worker
 pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.mjs`;
 
 interface RFUploadProps {
@@ -33,9 +32,9 @@ export const RFUpload: React.FC<RFUploadProps> = ({ onImageReady, disabled }) =>
       try {
         const arrayBuffer = await file.arrayBuffer();
         const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
-        const page = await pdf.getPage(1); // Only process first page
+        const page = await pdf.getPage(1); 
         
-        const viewport = page.getViewport({ scale: 2.0 }); // Render at 2x for better OCR
+        const viewport = page.getViewport({ scale: 2.0 }); 
         const canvas = document.createElement('canvas');
         const context = canvas.getContext('2d');
         
@@ -46,7 +45,7 @@ export const RFUpload: React.FC<RFUploadProps> = ({ onImageReady, disabled }) =>
           await page.render({
             canvasContext: context,
             viewport: viewport,
-            // @ts-ignore - Some versions of pdfjs types expect canvas, others don't
+            
             canvas: canvas
           }).promise;
           

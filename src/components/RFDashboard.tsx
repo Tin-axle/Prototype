@@ -37,7 +37,7 @@ export const RFDashboard: React.FC<RFDashboardProps> = ({ result }) => {
 
   return (
     <div className="flex flex-col h-full bg-white border border-border rounded-lg overflow-hidden">
-      {/* Header Stats */}
+      
       <div className="p-4 border-b border-border bg-gray-50 flex flex-wrap gap-4 items-center justify-between">
         <div className="flex gap-4 items-center text-sm">
           <span className="font-semibold text-gray-700">Engine: <span className="font-normal">{engine}</span></span>
@@ -56,7 +56,6 @@ export const RFDashboard: React.FC<RFDashboardProps> = ({ result }) => {
         </div>
       </div>
 
-      {/* Warnings Banner */}
       {warnings.length > 0 && (
         <div className="bg-yellow-50 border-b border-yellow-200 p-3 flex items-start gap-2 text-sm text-yellow-800">
           <AlertCircle className="w-5 h-5 text-yellow-600 shrink-0 mt-0.5" />
@@ -69,7 +68,6 @@ export const RFDashboard: React.FC<RFDashboardProps> = ({ result }) => {
         </div>
       )}
 
-      {/* Tabs Navigation */}
       <div className="flex border-b border-border px-2">
         {tabs.map(tab => {
           const Icon = tab.icon;
@@ -91,12 +89,11 @@ export const RFDashboard: React.FC<RFDashboardProps> = ({ result }) => {
         })}
       </div>
 
-      {/* Tab Content */}
       <div className="flex-1 overflow-auto p-4 bg-gray-50">
         
         {activeTab === 'profile' && (
           <div className="space-y-6">
-            {/* Profile Card */}
+            
             <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
               <div className="bg-blue-50 border-b border-gray-200 px-4 py-3 flex items-center gap-2">
                 <User className="w-5 h-5 text-blue-600" />
@@ -112,7 +109,6 @@ export const RFDashboard: React.FC<RFDashboardProps> = ({ result }) => {
               </div>
             </div>
 
-            {/* Financial Card */}
             <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
               <div className="bg-green-50 border-b border-gray-200 px-4 py-3 flex items-center gap-2">
                 <Receipt className="w-5 h-5 text-green-600" />
@@ -120,7 +116,7 @@ export const RFDashboard: React.FC<RFDashboardProps> = ({ result }) => {
               </div>
               <div className="p-4 grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
                 <DataField label="Total Amount" value={parsedData.totalAmount ? `₱${parsedData.totalAmount.toLocaleString()}` : undefined} />
-                {/* Could add other financial fields here if extracted */}
+                
               </div>
             </div>
           </div>

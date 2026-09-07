@@ -44,7 +44,7 @@ export interface OCRResult {
   parsedData: Partial<USAEnrollmentForm>;
   processingTimeMs: number;
   engine: 'TESSERACT' | 'CLOUD_VISION';
-  completeness: number; // percentage 0-100
+  completeness: number; 
   warnings: string[];
 }
 

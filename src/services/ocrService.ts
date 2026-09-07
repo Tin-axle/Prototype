@@ -49,7 +49,6 @@ export async function runCloudVisionOCR(
   const startTime = performance.now();
   onProgress?.('Sending image to Cloud Vision', 0.5);
 
-  // Convert base64 data URL to base64 string
   let base64Image = imageUrl;
   if (imageUrl.startsWith('data:image')) {
     base64Image = imageUrl.split(',')[1];

@@ -7,31 +7,24 @@ export function parseRFText(text: string): Partial<USAEnrollmentForm> {
     installmentBreakdown: []
   };
 
-  // Student Name
   const nameMatch = text.match(/Name\s*[:|]?\s*([A-Z,\s]+(?:[A-Z]))/i);
   if (nameMatch) data.studentName = nameMatch[1].trim();
 
-  // Student ID
   const idMatch = text.match(/(\d{4}-\d{4}-\d{2})/);
   if (idMatch) data.studentId = idMatch[1];
 
-  // Email
   const emailMatch = text.match(/([a-zA-Z0-9._%+-]+@usa\.edu\.ph)/i);
   if (emailMatch) data.email = emailMatch[1];
 
-  // Program / Course
   const programMatch = text.match(/(?:Program|Course)\s*[:|]?\s*([A-Za-z\s]+)(?:\n|$)/i);
   if (programMatch) data.program = programMatch[1].trim();
 
-  // Year Level
   const yearMatch = text.match(/(Y\d+S\d+)/i);
   if (yearMatch) data.yearLevel = yearMatch[1].toUpperCase();
 
-  // Contact Number
   const contactMatch = text.match(/(09\d{9})/);
   if (contactMatch) data.contactNumber = contactMatch[1];
 
-  // Financials
   const totalAmountMatch = text.match(/(?:Total Amount|Total Assessment)\s*[:|]?\s*[P|₱]?\s*([\d,.]+)/i);
   if (totalAmountMatch) {
     data.totalAmount = parseFloat(totalAmountMatch[1].replace(/,/g, ''));
@@ -43,7 +36,7 @@ export function parseRFText(text: string): Partial<USAEnrollmentForm> {
   const subjects: Subject[] = [];
   
   for (const line of lines) {
-    // Regex for subjects: (CS|CSIT|CSFE|CSME|MATH|ENG|PE|GE) \d{3,4} ...
+    
     const subjectMatch = line.match(/^([A-Z]{2,5}\s*\d{1,4}[A-Z]?)\s+(.*?)\s+(\d+\.\d+)\s+(\d+\.\d+)\s+(\d+\.\d+)\s+([\d,.]+)\s+(.*)$/i);
     
     if (subjectMatch) {
@@ -60,7 +53,7 @@ export function parseRFText(text: string): Partial<USAEnrollmentForm> {
       // Fallback simpler regex just for code and title
       const simpleSubjectMatch = line.match(/(?:^|\s)((?:CS|CSIT|CSFE|CSME|MATH|ENG|PE|GE)\s*\d{1,4}[A-Z]?)\s+([A-Za-z&.\-\s]+?)(?=\s\d|\s$)/i);
       if (simpleSubjectMatch && !line.toLowerCase().includes('total')) {
-        // Prevent false positives by checking if it matches a valid subject code
+        
         const code = simpleSubjectMatch[1].trim();
         if (code.length > 2) {
            subjects.push({
@@ -77,7 +70,6 @@ export function parseRFText(text: string): Partial<USAEnrollmentForm> {
     }
   }
 
-  // Deduplicate subjects by code
   const uniqueSubjects = [];
   const seenCodes = new Set();
   for (const sub of subjects) {
@@ -110,7 +102,7 @@ export function calculateCompleteness(data: Partial<USAEnrollmentForm>): { perce
   if (!data.subjects || data.subjects.length === 0) {
     warnings.push('No subjects extracted');
   } else {
-    present++; // Count subjects array as 1 key
+    present++; 
   }
 
   const totalKeys = expectedKeys.length + 1;
